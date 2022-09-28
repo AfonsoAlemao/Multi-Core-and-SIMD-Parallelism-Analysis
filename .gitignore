@@ -1,0 +1,7 @@
+#compiled code
+####################
+prog1_mandelbrot_threads/mandelbrot
+#images
+####################
+prog1_mandelbrot_threads/mandelbrot-serial.ppm
+prog1_mandelbrot_threads/mandelbrot-thread.ppm
