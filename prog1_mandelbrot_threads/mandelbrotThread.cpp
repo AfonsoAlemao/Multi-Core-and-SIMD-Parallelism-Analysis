@@ -62,15 +62,13 @@ void workerThreadStart(WorkerArgs * const args) {
        // int endRow = args->threadId + args->height-args->numThreads; // mudar totalRows
 
         for (unsigned int k = args->threadId; k < args->height; k += args->numThreads) {
+            for (unsigned int i = 0; i < args->width; ++i) {
+                float x = args->x0 + i * dx;
+                float y = args->y0 + k * dy;
 
-                for (unsigned int i = 0; i < args->width; ++i) {
-                    float x = args->x0 + i * dx;
-                    float y = args->y0 + k * dy;
-
-                    int index = (k * args->width + i);
-                    args->output[index] = mandel(x, y, args->maxIterations);
-                }
-
+                int index = (k * args->width + i);
+                args->output[index] = mandel(x, y, args->maxIterations);
+            }
         }
          
     
