@@ -102,7 +102,7 @@ void workerThreadStart(WorkerArgs * const args) {
             args->maxIterations, args->output);
     }
     
-    printf("Hello world from thread %d\n", args->threadId);
+    //printf("Hello world from thread %d\n", args->threadId);
 
     // clock_t end = clock();
     // float seconds = (float)(end - start) / CLOCKS_PER_SEC;
