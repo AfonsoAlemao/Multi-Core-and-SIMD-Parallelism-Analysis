@@ -54,7 +54,7 @@ void workerThreadStart(WorkerArgs * const args) {
     // program that uses two threads, thread 0 could compute the top
     // half of the image and thread 1 could compute the bottom half.
 
-    // clock_t start = clock();
+    //  clock_t start = clock();
 
     for (unsigned int i = args->threadId; i < args->height; i += args->numThreads) {
         mandelbrotSerial(args->x0, args->y0, args->x1, args->y1,
