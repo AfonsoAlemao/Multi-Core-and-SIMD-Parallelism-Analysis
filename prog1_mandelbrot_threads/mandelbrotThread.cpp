@@ -55,24 +55,12 @@ void workerThreadStart(WorkerArgs * const args) {
     // half of the image and thread 1 could compute the bottom half.
 
     // clock_t start = clock();
- 
-        float dx = (args->x1 - args->x0) / args->width;
-        float dy = (args->y1 - args->y0) / args->height;
 
-       // int endRow = args->threadId + args->height-args->numThreads; // mudar totalRows
-
-        for (unsigned int k = args->threadId; k < args->height; k += args->numThreads) {
-            for (unsigned int i = 0; i < args->width; ++i) {
-                float x = args->x0 + i * dx;
-                float y = args->y0 + k * dy;
-
-                int index = (k * args->width + i);
-                args->output[index] = mandel(x, y, args->maxIterations);
-            }
-        }
-         
-    
-    printf("Hello world from thread %d\n", args->threadId);
+    for (unsigned int i = args->threadId; i < args->height; i += args->numThreads) {
+        mandelbrotSerial(args->x0, args->y0, args->x1, args->y1,
+            args->width, args->height, i, 1,
+            args->maxIterations, args->output);
+    }
 
     // clock_t end = clock();
     // float seconds = (float)(end - start) / CLOCKS_PER_SEC;
@@ -104,7 +92,7 @@ void mandelbrotThread(
     WorkerArgs args[MAX_THREADS];
 
     for (int i=0; i<numThreads; i++) {
-      
+
         // TODO FOR STUDENTS: You may or may not wish to modify
         // the per-thread arguments here.  The code below copies the
         // same arguments for each thread
@@ -117,7 +105,7 @@ void mandelbrotThread(
         args[i].maxIterations = maxIterations;
         args[i].numThreads = numThreads;
         args[i].output = output;
-      
+
         args[i].threadId = i;
     }
 
@@ -127,7 +115,7 @@ void mandelbrotThread(
     for (int i=1; i<numThreads; i++) {
         workers[i] = std::thread(workerThreadStart, &args[i]);
     }
-    
+
     workerThreadStart(&args[0]);
 
     // join worker threads
@@ -136,4 +124,3 @@ void mandelbrotThread(
     }
 
 }
-
