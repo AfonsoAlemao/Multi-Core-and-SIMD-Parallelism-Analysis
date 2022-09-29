@@ -5,3 +5,6 @@ prog1_mandelbrot_threads/mandelbrot
 ####################
 prog1_mandelbrot_threads/mandelbrot-serial.ppm
 prog1_mandelbrot_threads/mandelbrot-thread.ppm
+#objetos
+####################
+prog1_mandelbrot_threads/objs/
