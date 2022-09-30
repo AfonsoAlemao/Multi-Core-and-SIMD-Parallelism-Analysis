@@ -54,7 +54,7 @@ void workerThreadStart(WorkerArgs * const args) {
     // program that uses two threads, thread 0 could compute the top
     // half of the image and thread 1 could compute the bottom half.
 
-    //  clock_t start = clock();
+    clock_t start = clock();
 
     for (unsigned int i = args->threadId; i < args->height; i += args->numThreads) {
         mandelbrotSerial(args->x0, args->y0, args->x1, args->y1,
@@ -62,12 +62,12 @@ void workerThreadStart(WorkerArgs * const args) {
             args->maxIterations, args->output);
     }
     
-    printf("Hello world from thread %d\n", args->threadId);
+    // printf("Hello world from thread %d\n", args->threadId);
 
-    // clock_t end = clock();
-    // float seconds = (float)(end - start) / CLOCKS_PER_SEC;
+    clock_t end = clock();
+    float seconds = (float)(end - start) / CLOCKS_PER_SEC;
 
-    // printf("Thread %d: %.4f miliseconds\n", args->threadId, pow(10, 3) * seconds);
+    printf("Thread %d: %.4f miliseconds\n", args->threadId, pow(10, 3) * seconds);
 }
 
 //
