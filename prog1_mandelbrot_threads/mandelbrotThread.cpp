@@ -42,7 +42,9 @@ static inline int mandel(float c_re, float c_im, int count)
     return i;
 }
 
-//
+
+/* 
+// FOR QUESTION 1.1, 1.2, 1.3
 // workerThreadStart --
 //
 // Thread entrypoint.
@@ -56,6 +58,44 @@ void workerThreadStart(WorkerArgs * const args) {
 
     clock_t start = clock();
 
+    int totalRows = args->height/args->numThreads ;
+    int startRow =  args->threadId*totalRows ;
+
+    int endRow = startRow + totalRows;
+
+    if ((args->threadId*totalRows + endRow) > (int) args->width){
+        endRow = args->height;
+        totalRows = endRow - startRow;
+    }
+
+    mandelbrotSerial(args->x0, args->y0, args->x1, args->y1,
+        args->width, args->height, startRow, totalRows,
+        args->maxIterations, args->output);
+    
+    printf("Hello world from thread %d\n", args->threadId);
+
+    clock_t end = clock();
+    float seconds = (float)(end - start) / CLOCKS_PER_SEC;
+
+    printf("Thread %d: %.4f miliseconds\n", args->threadId, pow(10, 3) * seconds);
+}
+*/
+
+
+// FOR QUESTION 1.4, 1.5
+// workerThreadStart --
+//
+// Thread entrypoint.
+void workerThreadStart(WorkerArgs * const args) {
+
+    // TODO FOR STUDENTS: Implement the body of the worker
+    // thread here. Each thread should make a call to mandelbrotSerial()
+    // to compute a part of the output image.  For example, in a
+    // program that uses two threads, thread 0 could compute the top
+    // half of the image and thread 1 could compute the bottom half.
+
+    // clock_t start = clock();
+
     for (unsigned int i = args->threadId; i < args->height; i += args->numThreads) {
         mandelbrotSerial(args->x0, args->y0, args->x1, args->y1,
             args->width, args->height, i, 1,
@@ -64,11 +104,12 @@ void workerThreadStart(WorkerArgs * const args) {
     
     // printf("Hello world from thread %d\n", args->threadId);
 
-    clock_t end = clock();
-    float seconds = (float)(end - start) / CLOCKS_PER_SEC;
+    // clock_t end = clock();
+    // float seconds = (float)(end - start) / CLOCKS_PER_SEC;
 
-    printf("Thread %d: %.4f miliseconds\n", args->threadId, pow(10, 3) * seconds);
+    // printf("Thread %d: %.4f miliseconds\n", args->threadId, pow(10, 3) * seconds);
 }
+
 
 //
 // MandelbrotThread --
@@ -89,15 +130,12 @@ void mandelbrotThread(
         exit(1);
     }
 
-    // creates space to be able to read thread times easier
-    // printf("\n\n\n\n");
-
     // Creates thread objects that do not yet represent a thread.
     std::thread workers[MAX_THREADS];
     WorkerArgs args[MAX_THREADS];
 
     for (int i=0; i<numThreads; i++) {
-
+      
         // TODO FOR STUDENTS: You may or may not wish to modify
         // the per-thread arguments here.  The code below copies the
         // same arguments for each thread
@@ -120,7 +158,7 @@ void mandelbrotThread(
     for (int i=1; i<numThreads; i++) {
         workers[i] = std::thread(workerThreadStart, &args[i]);
     }
-
+    
     workerThreadStart(&args[0]);
 
     // join worker threads
@@ -129,3 +167,4 @@ void mandelbrotThread(
     }
 
 }
+
