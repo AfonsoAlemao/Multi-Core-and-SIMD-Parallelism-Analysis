@@ -43,7 +43,7 @@ static inline int mandel(float c_re, float c_im, int count)
 }
 
 
-/* 
+ 
 // FOR QUESTION 1.1, 1.2, 1.3
 // workerThreadStart --
 //
@@ -56,7 +56,7 @@ void workerThreadStart(WorkerArgs * const args) {
     // program that uses two threads, thread 0 could compute the top
     // half of the image and thread 1 could compute the bottom half.
 
-    clock_t start = clock();
+    //clock_t start = clock();
 
     int totalRows = args->height/args->numThreads ;
     int startRow =  args->threadId*totalRows ;
@@ -73,15 +73,15 @@ void workerThreadStart(WorkerArgs * const args) {
         args->maxIterations, args->output);
     
     printf("Hello world from thread %d\n", args->threadId);
-
+    /*
     clock_t end = clock();
     float seconds = (float)(end - start) / CLOCKS_PER_SEC;
 
-    printf("Thread %d: %.4f miliseconds\n", args->threadId, pow(10, 3) * seconds);
+    printf("Thread %d: %.4f miliseconds\n", args->threadId, pow(10, 3) * seconds);*/
 }
-*/
 
 
+/*
 // FOR QUESTION 1.4, 1.5
 // workerThreadStart --
 //
@@ -109,7 +109,7 @@ void workerThreadStart(WorkerArgs * const args) {
 
     // printf("Thread %d: %.4f miliseconds\n", args->threadId, pow(10, 3) * seconds);
 }
-
+*/
 
 //
 // MandelbrotThread --
