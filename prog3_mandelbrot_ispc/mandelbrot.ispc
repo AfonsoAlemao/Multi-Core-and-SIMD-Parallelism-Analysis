@@ -61,31 +61,15 @@ task void mandelbrot_ispc_task(uniform float x0, uniform float y0,
     }
 }
 
+/* Initial code */
+/*
 export void mandelbrot_ispc_withtasks(uniform float x0, uniform float y0,
                                       uniform float x1, uniform float y1,
                                       uniform int width, uniform int height,
                                       uniform int maxIterations,
                                       uniform int output[])
 {
-    uniform int number_of_tasks;
-    if (height % 8 > 0) {
-        number_of_tasks = (height + 8 - (height % 8)) / 8;
-    }
-    else {
-        number_of_tasks = height / 8;
-    }
-    
-    uniform int rowsPerTask = height / number_of_tasks;
 
-    // create i tasks
-    launch[number_of_tasks] mandelbrot_ispc_task(x0, y0, x1, y1,
-                                    width, height,
-                                    rowsPerTask,
-                                    maxIterations,
-                                    output); 
-     
-     
-   /* 
     uniform int rowsPerTask = height / 2;
 
     // create 2 tasks
@@ -94,5 +78,42 @@ export void mandelbrot_ispc_withtasks(uniform float x0, uniform float y0,
                                      rowsPerTask,
                                      maxIterations,
                                      output); 
-    */
+}*/
+
+
+/* Improved Code */
+export void mandelbrot_ispc_withtasks(uniform float x0, uniform float y0,
+                                      uniform float x1, uniform float y1,
+                                      uniform int width, uniform int height,
+                                      uniform int maxIterations,
+                                      uniform int output[])
+{
+    uniform int number_of_tasks;
+
+    if (height < 1024) {
+        if (height % 8 > 0) {
+            number_of_tasks = (height + 8 - (height % 8)) / 8;
+        }
+        else {
+            number_of_tasks = height / 8;
+        }
+    }
+    else {
+        if (height % 64 > 0) {
+            number_of_tasks = (height + 64 - (height % 64)) / 8;
+        }
+        else {
+            number_of_tasks = height / 64;
+        }
+    }
+    
+    // Assuming that heigth % number_of_tasks = 0
+    uniform int rowsPerTask = height / number_of_tasks;
+
+    // create i tasks
+    launch[number_of_tasks] mandelbrot_ispc_task(x0, y0, x1, y1,
+                                    width, height,
+                                    rowsPerTask,
+                                    maxIterations,
+                                    output); 
 }

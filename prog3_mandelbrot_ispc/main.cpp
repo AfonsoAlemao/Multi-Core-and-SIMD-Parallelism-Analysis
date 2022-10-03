@@ -190,7 +190,7 @@ int main(int argc, char** argv) {
 
         printf("[mandelbrot multicore ispc]:\t[%.3f] ms\n", minTaskISPC * 1000);
         writePPMImage(output_ispc_tasks, width, height, "mandelbrot-task-ispc.ppm", maxIterations);
-
+        
         if (! verifyResult (output_serial, output_ispc_tasks, width, height)) {
             printf ("Error : ISPC output differs from sequential output\n");
             return 1;
