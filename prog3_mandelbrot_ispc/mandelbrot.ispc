@@ -67,7 +67,7 @@ export void mandelbrot_ispc_withtasks(uniform float x0, uniform float y0,
                                       uniform int maxIterations,
                                       uniform int output[])
 {
-    /* uniform int number_of_tasks;
+    uniform int number_of_tasks;
     if (height % 8 > 0) {
         number_of_tasks = (height + 8 - (height % 8)) / 8;
     }
@@ -83,9 +83,9 @@ export void mandelbrot_ispc_withtasks(uniform float x0, uniform float y0,
                                     rowsPerTask,
                                     maxIterations,
                                     output); 
-     */
      
-    
+     
+   /* 
     uniform int rowsPerTask = height / 2;
 
     // create 2 tasks
@@ -94,5 +94,5 @@ export void mandelbrot_ispc_withtasks(uniform float x0, uniform float y0,
                                      rowsPerTask,
                                      maxIterations,
                                      output); 
-    
+    */
 }
