@@ -37,10 +37,10 @@ int main() {
         //values[i] = .001f + 2.998f * static_cast<float>(rand()) / RAND_MAX;
 
         // bad choice: low arithmetic intensity. Most of the running time is due to memory operation
-        values[i] = 1;
+        //values[i] = 1;
 
         // good choice: high arithmetic intensity.
-        //values[i] = 2.99999;
+        values[i] = 2.99999;
 
     }
 
