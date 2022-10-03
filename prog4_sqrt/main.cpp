@@ -39,8 +39,16 @@ int main() {
         // bad choice: low arithmetic intensity. Most of the running time is due to memory operation
         //values[i] = 1;
 
+        // even worst bad choice: SIMD where most of the ALU's are underused
+        if (i % 8 == 0) {
+            values[i] = 2.99;
+        }
+        else {
+            values[i] = 1;
+        }
+
         // good choice: high arithmetic intensity.
-        values[i] = 2.99999;
+        // values[i] = 2.99;
 
     }
 
