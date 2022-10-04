@@ -84,10 +84,13 @@ int main(int argc, char** argv) {
 
     // parse commandline options ////////////////////////////////////////////
     int opt;
+
+    int alpha = 8; //-> our thing
     static struct option long_options[] = {
         {"tasks", 0, 0, 't'},
         {"view",  1, 0, 'v'},
         {"help",  0, 0, '?'},
+        {"alpha", 1, 0, 'a'},
         {0 ,0, 0, 0}
     };
 
@@ -112,6 +115,9 @@ int main(int argc, char** argv) {
             }
             break;
         }
+        case 'a':
+          alpha = atoi(optarg);
+          break;
         case '?':
         default:
             usage(argv[0]);
@@ -183,14 +189,14 @@ int main(int argc, char** argv) {
         //
         for (int i = 0; i < 5; ++i) {
             double startTime = CycleTimer::currentSeconds();
-            mandelbrot_ispc_withtasks(x0, y0, x1, y1, width, height, maxIterations, output_ispc_tasks);
+            mandelbrot_ispc_withtasks(x0, y0, x1, y1, width, height, maxIterations, output_ispc_tasks,alpha);
             double endTime = CycleTimer::currentSeconds();
             minTaskISPC = std::min(minTaskISPC, endTime - startTime);
         }
 
         printf("[mandelbrot multicore ispc]:\t[%.3f] ms\n", minTaskISPC * 1000);
         writePPMImage(output_ispc_tasks, width, height, "mandelbrot-task-ispc.ppm", maxIterations);
-        
+
         if (! verifyResult (output_serial, output_ispc_tasks, width, height)) {
             printf ("Error : ISPC output differs from sequential output\n");
             return 1;
