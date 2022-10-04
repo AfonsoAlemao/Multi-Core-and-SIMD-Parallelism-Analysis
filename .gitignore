@@ -8,3 +8,9 @@ prog1_mandelbrot_threads/mandelbrot-thread.ppm
 #objetos
 ####################
 prog1_mandelbrot_threads/objs/
+#Makefiles
+####################
+prog1_mandelbrot_threads/Makefile
+prog3_mandelbrot_ispc/Makefile
+prog4_sqrt/Makefile
+prog5_saxpy/Makefile
