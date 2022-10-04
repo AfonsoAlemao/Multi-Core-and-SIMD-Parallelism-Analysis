@@ -1,8 +1,8 @@
 CXX=g++ -m64
 CXXFLAGS=-I../common -Iobjs/ -O3 -Wall -fPIC
-ISPC=~/Desktop/csph/L/ispc-v1.18.0-linux/bin/ispc
+ISPC=~/.admin/ispc-v1.18.0/bin/ispc
 # note: requires AVX2 --target=avx2-i32x8
-# disabling AVX2 FMA since it causes a difference in output compared to reference on Mandelbrot
+# disabling AVX2 FMA since it causes a difference in output compared to reference on Mandelbrot 
 # for adriana it must be avx
 ISPCFLAGS=-O3 --target=avx2 --arch=x86-64 --opt=disable-fma --pic
 
@@ -42,3 +42,4 @@ $(OBJDIR)/main.o: $(OBJDIR)/mandelbrot_ispc.h $(COMMONDIR)/CycleTimer.h
 
 $(OBJDIR)/%_ispc.h $(OBJDIR)//%_ispc.o: %.ispc
 		$(ISPC) $(ISPCFLAGS) $< -o $(OBJDIR)/$*_ispc.o -h $(OBJDIR)/$*_ispc.h
+
