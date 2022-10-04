@@ -1,6 +1,6 @@
 CXX=g++ -m64
 CXXFLAGS=-I../common -Iobjs/ -O2 -Wall
-ISPC=~/.admin/ispc-v1.18.0/bin/ispc
+ISPC=~/Desktop/csph/L/ispc-v1.18.0-linux/bin/ispc
 # note: requires AVX2 capable machine --target=avx2-i32x8
 # for adriana it must be avx
 ISPCFLAGS=-O3 --target=avx2 --arch=x86-64
@@ -38,4 +38,3 @@ $(OBJDIR)/main.o: $(OBJDIR)/$(APP_NAME)_ispc.h $(COMMONDIR)/CycleTimer.h
 
 $(OBJDIR)/%_ispc.h $(OBJDIR)//%_ispc.o: %.ispc
 		$(ISPC) $(ISPCFLAGS) $< -o $(OBJDIR)/$*_ispc.o -h $(OBJDIR)/$*_ispc.h
-
