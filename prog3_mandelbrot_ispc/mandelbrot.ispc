@@ -89,27 +89,31 @@ export void mandelbrot_ispc_withtasks(uniform float x0, uniform float y0,
                                       uniform int output[])
 {
     uniform int number_of_tasks;
+
     /**
     if (height < 1024) {
-        if (height % 8 > 0) {
-            number_of_tasks = (height + 8 - (height % 8)) / 8;
+        if (height % 10 > 0) {
+            number_of_tasks = (height + 10 - (height % 10)) / 10;
         }
         else {
-            number_of_tasks = height / 8;
+            number_of_tasks = height / 10;
         }
     }
     else {
         if (height % 64 > 0) {
-            number_of_tasks = (height + 64 - (height % 64)) / 8;
+            number_of_tasks = (height + 64 - (height % 64)) / 64;
         }
         else {
             number_of_tasks = height / 64;
         }
     }
+
     **/
 
-    uniform int rowsPerTask = 16;
 
+
+    // Assuming that heigth % number_of_tasks = 0
+    uniform int rowsPerTask = 10;
     number_of_tasks = height / rowsPerTask;
 
     // create i tasks
