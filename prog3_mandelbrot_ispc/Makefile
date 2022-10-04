@@ -1,6 +1,6 @@
 CXX=g++ -m64
 CXXFLAGS=-I../common -Iobjs/ -O3 -Wall -fPIC
-ISPC=~/Desktop/csph/L/ispc-v1.18.0-linux/bin/ispc
+ISPC=~/.admin/ispc-v1.18.0/bin/ispc
 # note: requires AVX2 --target=avx2-i32x8
 # disabling AVX2 FMA since it causes a difference in output compared to reference on Mandelbrot 
 # for adriana it must be avx
