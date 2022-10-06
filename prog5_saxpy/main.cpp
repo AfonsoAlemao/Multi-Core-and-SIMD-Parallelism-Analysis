@@ -53,7 +53,7 @@ int main() {
         minSerial = std::min(minSerial, endTime - startTime);
     }
 
-// printf("[saxpy serial]:\t\t[%.3f] ms\t[%.3f] GB/s\t[%.3f] GFLOPS\n",
+    // printf("[saxpy serial]:\t\t[%.3f] ms\t[%.3f] GB/s\t[%.3f] GFLOPS\n",
     //       minSerial * 1000,
     //       toBW(TOTAL_BYTES, minSerial),
     //       toGFLOPS(TOTAL_FLOPS, minSerial));
